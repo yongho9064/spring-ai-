@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.6'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'me.yongho'
+version = '0.0.1-SNAPSHOT'
+description = 'spai'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    runtimeOnly 'com.h2database:h2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // Google GenAI 클라이언트 라이브러리
+    implementation 'com.google.genai:google-genai:1.0.0'
+    // Spring WebFlux (비동기 처리 및 리액티브 프로그래밍 지원)
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    /*// Qdrant Java 클라이언트
+    implementation 'io.qdrant:qdrant-client:1.9.0'
+    // gRPC 관련 의존성 (Qdrant 클라이언트가 필요로 함)
+    implementation 'io.grpc:grpc-netty-shaded:1.62.2'*/
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
